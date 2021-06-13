@@ -85,29 +85,29 @@ class Language extends Component{
     render(){
         var form
         if(!this.state.add){
-            form = <button disabled={this.state.add} onClick={this.addtodic} >add to dictionary</button>
+            form = <button className='form-control' disabled={this.state.add} onClick={this.addtodic} >add to dictionary</button>
         }
         else{
             form = <Fragment>
-                        <label>meaning of new word </label>
-                        <input disabled={!this.state.add} onChange={this.handlenewword} type='text'></input>
-                        <button disabled={!this.state.add} onClick={this.addword}>Add</button>
+                        <label className='form-control'>meaning of new word </label>
+                        <input className='form-control' disabled={!this.state.add} onChange={this.handlenewword} type='text'></input>
+                        <button className='form-control' disabled={!this.state.add} onClick={this.addword}>Add</button>
                     </Fragment>
         }
         
 
-        const inp = <input disabled = {this.state.select} type='text' onChange = {this.handleinput} value = {this.state.word}></input>
+        const inp = <input className='form-control' disabled = {this.state.select} type='text' onChange = {this.handleinput} value = {this.state.word}></input>
         return(
                 <div className='box'>
                     <h2> Smart Translator  </h2>
-                    <select  onChange = {this.handleselect} value = {this.state.language}>
+                    <select className='form-control'  onChange = {this.handleselect} value = {this.state.language}>
                     <option value=""></option>
                         <option  value="Traduire en Anglais">French-English</option>
                         <option  value="Translate to French">English-French</option>
                     </select><br/>
-                    {inp}
-                    <button  onClick={this.translate} >{ this.state.language}  </button>
-                    <div>
+                    {inp}<br/>
+                    {!this.state.select? <button  className='form-control' onClick={this.translate} >{ this.state.language}  </button>:<></>}
+                    <div className='translated'>
                     {this.state.translated}
                     </div>
                     {form}

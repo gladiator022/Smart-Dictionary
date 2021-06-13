@@ -1,10 +1,30 @@
 .box div{
-  width: 400px;
+  width: auto;
   height: 100px;
-  margin: 0 auto;
-  border: 2px solid black;
+  margin: 20px auto;
+  border: 2px solid rgb(167, 104, 104);
   text-align: center;
+  border-radius: 15px;
+  padding: 8%;
 }
 .box{
   text-align: center;
+  margin: 100px auto;
+  width: 36%;
+  height: auto;
+  text-align: center;
+  border: greenyellow 2px solid;
+  border-radius: 35px;
+  padding:  3% 5% 3% 5%;
+}
+body{
+  background-color:rgba(221, 214, 214, 0.274);
+}
+select{
+  width: 100px;
+  text-align: center;
+}
+.translated{
+  font-weight: bold;
+  font-size: 16px;
 }
