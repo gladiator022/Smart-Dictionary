@@ -1,0 +1,10 @@
+.box div{
+  width: 400px;
+  height: 100px;
+  margin: 0 auto;
+  border: 2px solid black;
+  text-align: center;
+}
+.box{
+  text-align: center;
+}
