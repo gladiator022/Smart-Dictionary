@@ -1,7 +1,5 @@
 
-import React  from 'react';
-import { Fragment as div } from 'react';
-import { Component } from 'react';
+import React,{Component , Fragment }  from 'react';
 //import Textbox from './Textbox'
 
 
@@ -19,9 +17,11 @@ class Language extends Component{
                 manger:"eat",
                 boire:"drink"
             },
-            language:''
-            //dictionaryFR:["bonjour","venir","partir" ,"bien","manger","boire","courir","pleurer","dormir"],
-            //dictionaryEN:["good-morning","come","go","good","eat","drink", "run","cry","sleep"] 
+            language:'',
+            add:false,
+            translated:'',
+            newword:'',
+            select: true
         }
     
     
@@ -32,48 +32,85 @@ class Language extends Component{
     }
 
     handleselect = (even) =>{
-        this.setState({
-            language: even.target.value,
-        })
+        if(even.target.value !== ''){
+            this.setState({
+                language: even.target.value,
+                select:false
+            }) 
+        }
      }
 
-     translate = () =>{
+     translate = (e) =>{
          let dic = this.state.dic
          let word = this.state.word
          let key = Object.keys(dic)
          let value = Object.values(dic)
-         let translated = ''
          for(let i=0;i<key.length;i++){
             if(word===key[i]){
-                translated = value[i]
+                this.setState({
+                    translated : value[i]
+                }) 
             }
             
             if(word===value[i]){ 
-                translated = key[i]
+                this.setState({
+                    translated : key[i]
+                })
             }
          }
-         return <p>{translated}</p>
      }
      addtodic = ()=>{
-         
+         this.setState({
+             add:true
+         })
+     }
+     handlenewword = (e)=>{
+        this.setState({
+            newword:e.target.value
+        })
+     }
+     addword = ( )=> {
+         let word = this.state.word
+         let newword = this.state.newword
+        this.setState((prevState) => ({
+            
+            dic: {                   
+                ...prevState.dic,    
+                [word] : newword   
+            },
+            add:false
+        }))
      }
 
     render(){
+        var form
+        if(!this.state.add){
+            form = <button disabled={this.state.add} onClick={this.addtodic} >add to dictionary</button>
+        }
+        else{
+            form = <Fragment>
+                        <label>meaning of new word </label>
+                        <input disabled={!this.state.add} onChange={this.handlenewword} type='text'></input>
+                        <button disabled={!this.state.add} onClick={this.addword}>Add</button>
+                    </Fragment>
+        }
         
-        const inp = <input type='text' onChange = {this.handleinput} value = {this.state.word}></input>
+
+        const inp = <input disabled = {this.state.select} type='text' onChange = {this.handleinput} value = {this.state.word}></input>
         return(
                 <div className='box'>
-                    <h2> Translate  </h2>
+                    <h2> Smart Translator  </h2>
                     <select  onChange = {this.handleselect} value = {this.state.language}>
                     <option value=""></option>
-                        <option value="French">French-English</option>
-                        <option value="English">English-French</option>
+                        <option  value="Traduire en Anglais">French-English</option>
+                        <option  value="Translate to French">English-French</option>
                     </select><br/>
                     {inp}
-                    <button onClick={this.addtodic} >add to dictionary</button>
+                    <button  onClick={this.translate} >{ this.state.language}  </button>
                     <div>
-                    {this.translate()}
+                    {this.state.translated}
                     </div>
+                    {form}
                 </div>
             )
     } 
